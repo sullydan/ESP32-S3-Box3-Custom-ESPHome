@@ -1790,17 +1790,6 @@ display:
           } else {
                  it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
           }
-          if(id(alarm_status).state == "disarmed") {
-          it.printf(250, 5, id(icon_font_55), red, "\U000F099E");
-          } else if(id(alarm_status).state == "arming") {
-          it.printf(250, 5, id(icon_font_55), amber, "\U000F0565");
-          } else if(id(alarm_status).state == "armed_home") {
-          it.printf(250, 5, id(icon_font_55), green, "\U000F068A");
-          } else if(id(alarm_status).state == "armed_away") {
-          it.printf(250, 5, id(icon_font_55), green, "\U000F099D");
-          } else if(id(alarm_status).state == "armed_night") {
-          it.printf(250, 5, id(icon_font_55), green, "\U000F1828");
-          }
           it.printf(15, 75, id(my_font5), light_blue, "Ext media player");
           if(id(output_audio).state) {
                  it.printf(255, 60, id(icon_font_60), lime, "\U000F0521");
@@ -2061,26 +2050,6 @@ binary_sensor:
         - switch.toggle: mute_switch
         - component.update: s3_box_lcd
 
-  - platform: touchscreen
-    pages:
-      - idle_page
-      - info_page
-      - template_page
-      - media_page
-      - ext_media_page
-      - settings_page
-    name: status_bar_5
-    internal: true
-    x_min: 250
-    x_max: 305
-    y_min: 0
-    y_max: 55
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - display.page.show: alarm_page
-        - component.update: s3_box_lcd
 
 ##### settings page ####
   - platform: touchscreen
@@ -2096,21 +2065,6 @@ binary_sensor:
       max_length: 500ms
       then:
         - display.page.show: ww_set_page
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: settings_page
-    id: ss_set
-    internal: true
-    x_min: 110
-    x_max: 210
-    y_min: 100
-    y_max: 165
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - display.page.show: ss_set_page
         - component.update: s3_box_lcd
 
   - platform: touchscreen
@@ -2423,67 +2377,6 @@ binary_sensor:
               entity_id: media_player.${external_media_player}
         - component.update: s3_box_lcd
         - script.execute: set_volume
-
-##### Screensaver Settings #####
-  - platform: touchscreen
-    page_id: ss_set_page
-    id: ss_timeout
-    internal: true
-    x_min: 250
-    x_max: 315
-    y_min: 115
-    y_max: 145
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - display.page.show: timeout_settings_page
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ss_set_page
-    id: ss_toggle
-    internal: true
-    x_min: 250
-    x_max: 315
-    y_min: 150
-    y_max: 175
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - switch.toggle: s_saver
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen # remove for no sensor version
-    page_id: ss_set_page
-    id: ss_wake_presc
-    internal: true
-    x_min: 250
-    x_max: 315
-    y_min: 180
-    y_max: 205
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - switch.toggle: s_saver_presc
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ss_set_page
-    id: ss_toggle_blank
-    internal: true
-    x_min: 250
-    x_max: 315
-    y_min: 210
-    y_max: 235
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - switch.toggle: s_saver_mode
-        - component.update: s3_box_lcd
 
 ##### voice settings page #####
   - platform: touchscreen
