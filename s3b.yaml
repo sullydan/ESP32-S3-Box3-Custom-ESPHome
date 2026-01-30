@@ -1505,10 +1505,10 @@ display:
           } else {
                   it.printf(80, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00")
-          it.printf(135, 5, id(icon_font_55), red, "${clock_glyph}");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(135, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "${clock_glyph}");
+            it.printf(135, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
                  it.printf(190, 5, id(icon_font_55), red, "${mic_off_glyph}");
