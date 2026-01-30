@@ -6,23 +6,23 @@ substitutions:
   name: esp32-s3box-3
   friendly_name: ESP32-S3-Box-3
 
-  external_media_player: your_media_player  ##change this to your external media player enity_id: do not include media_player.
+  external_media_player: your_media_player ##change this to your external media player enity_id: do not include media_player.
   home_assistant_host: http://homeassistant.local:8123 ##change to the full url or IP of your HA server including port
   tts_voice_speed: "24000" #options #nabu casa "24000" #piper "16000" elevenlabs "44100" must include quotes
 
-#################### ON DEVICE WAKE WORDS #######################################
-####          all of the below wakewords are installed on the device        #####
-####      you can use any of these without re-compiling - just say them!    #####
-#################################################################################
-# TO REMOVE A WAKE WORD - COMMENT OUT THE CORESPONDING LINE FROM THE CONFIG BELOW - CTRL + F to search for "models"
+  #################### ON DEVICE WAKE WORDS #######################################
+  ####          all of the below wakewords are installed on the device        #####
+  ####      you can use any of these without re-compiling - just say them!    #####
+  #################################################################################
+  # TO REMOVE A WAKE WORD - COMMENT OUT THE CORESPONDING LINE FROM THE CONFIG BELOW - CTRL + F to search for "models"
   micro_wake_word_model_1: alexa
   micro_wake_word_model_2: hey_jarvis
   micro_wake_word_model_3: okay_nabu
   micro_wake_word_model_4: hey_mycroft
-####################################################################
+  ####################################################################
 
-#####  Days and months #####
-## Change the values on the right to match your locale ##
+  #####  Days and months #####
+  ## Change the values on the right to match your locale ##
   monday: Monday
   tuesday: Tuesday
   wednesday: Wednesday
@@ -43,10 +43,65 @@ substitutions:
   oct: October
   nov: November
   dec: December
-#####################################################################
+  #####################################################################
+  ####               Glyph definitions for readability             ####
+  #####################################################################
+  bell_glyph: "\U000F009E"
+  clock_glyph: "\U000F0150"
+  mic_on_glyph: "\U000F036C"
+  mic_off_glyph: "\U000F036D"
+  voice_settings_glyph: "\U000F036F"
+  pause_glyph: "\U000F03E4"
+  play_glyph: "\U000F040A"
+  play_pause_glyph: "\U000F040E"
+  settings_cog_glyph: "\U000F0493"
+  next_track_glyph: "\U000F04AD"
+  previous_track_glyph: "\U000F04AE"
+  living_room_glyph: "\U000F04B9"
+  spots_glyph: "\U000F04C8"
+  stop_glyph: "\U000F04DB"
+  screen_settings_glyph: "\U000F0502"
+  temp_sensor_glyph: "\U000F050F"
+  toggle_on_glyph: "\U000F0521"
+  speaker_on_glyph: "\U000F057E"
+  speaker_off_glyph: "\U000F0581"
+  voice_glyph: "\U000F05CB"
+  light_bulb_on_glyph: "\U000F06E8"
+  music_glyph: "\U000F075A"
+  vol_plus_glyph: "\U000F075D"
+  vol_minus_glyph: "\U000F075E"
+  ceiling_glyph: "\U000F0769"
+  api_connected_glyph: "\U000F07D0"
+  tv_glyph: "\U000F07F4"
+  api_disconnected_glyph: "\U000F087B"
+  settings_glyph: "\U000F08D6"
+  toggle_off_glyph: "\U000F0A19"
+  down_glyph: "\U000F0B26"
+  left_glyph: "\U000F0B28"
+  right_glyph: "\U000F0B2A"
+  up_glyph: "\U000F0B2C"
+  screen_off_glyph: "\U000F0D90"
+  stats_glyph: "\U000F0EBA"
+  voice_off_glyph: "\U000F0ED4"
+  scene_glyph: "\U000F0FCE"
+  dining_glyph: "\U000F1061"
+  kitchen_glyph: "\U000F1160"
+  touch_button_glyph: "\U000F12A8"
+  garage_closed_glyph: "\U000F12D3"
+  garage_open_glyph: "\U000F12D4"
+  tools_glyph: "\U000F1322"
+  wifi_disconnected_glyph: "\U000F16BC"
+  wifi_connected_glyph: "\U000F16BD"
+  fire_off_glyph: "\U000F1722"
+  tall_lamp_glyph: "\U000F1747"
+  electricity_glyph: "\U000F192D"
+  floods_glyph: "\U000F1987"
+  home_button_glyph: "\U000F1A12"
+  gas_glyph: "\U000F1A1B"
+  info_glyph: "\U000F1C6F"
 
-##### DO NOT CHANGE SUBSTITUTIONS BELOW THIS LINE ######
-#####      UNLESS YOU KNOW WHAT YOU ARE DOING     ######
+  ##### DO NOT CHANGE SUBSTITUTIONS BELOW THIS LINE ######
+  #####      UNLESS YOU KNOW WHAT YOU ARE DOING     ######
   font_glyphs: '&@!"''%()+=,-_.:°/$€£¥?0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyzÀàÁáÂâÃãÄäĀāĂăÅåǺǻẠạĄąÆæǼǽĆćĈĉČčĊċÇçĎďĐđÐðÈèÉéÊêẼẽĚěËëĒēĔĕĖėẸẹĘęĜĝǦǧĞğĠġĢģĤĥĦħıÌìÍíÎîĨĩÏïĪīĬĭİỊịĮįȷĴĵĶķĸĹĺĽľĻļŁłĿŀŃńÑñŇňŅņƝɲŊŋŉÒòÓóÔôÕõÖöŌōŎŏŐőỌọǪǫØøǾǿŒœŔŕŘřŖŗŚśŜŝŠšŞşȘșẞßŤťŢţȚțŦŧÞþÙùÚúÛûŨũÜüŪūŬŭŮůŰűỤụŲųẀẁẂẃŴŵẄẅỲỳÝýŶŷỸỹŸÿȲȳŹźŽžŻżĲĳƏə'
 
 ############# END OF SUBSTITUTIONS #################
@@ -72,7 +127,7 @@ esphome:
               id: speaker_media_player
               volume: 0
   project:
-    name: "BigBobbas.s3box"
+    name: "sullydan.s3box"
     version: "2024.09.02"
 esp32:
   board: esp32s3box
@@ -102,8 +157,9 @@ api:
 ota:
   - platform: esphome
     on_begin:
-      - lambda: id(led).turn_on().set_brightness(1.0).set_transition_length(0).perform();
-                id(led).loop();
+      - lambda:
+          id(led).turn_on().set_brightness(1.0).set_transition_length(0).perform();
+          id(led).loop();
       - display.page.show: ota_page
       - component.update: s3_box_lcd
 
@@ -142,7 +198,7 @@ interval:
     then:
       - if:
           condition:
-            - lambda: 'return { (id(api_connection) != true) };'
+            - lambda: "return { (id(api_connection) != true) };"
           then:
             - if:
                 condition:
@@ -160,7 +216,7 @@ interval:
     then:
       - if:
           condition:
-            - lambda: 'return { (id(wifi_connection) != true) };'
+            - lambda: "return { (id(wifi_connection) != true) };"
           then:
             - if:
                 condition:
@@ -315,17 +371,17 @@ script:
     mode: restart
 
   # - id: timer_started
-    # then:
-      # while:
-        # condition:
-          # switch.is_on: timer_ringing
-        # then:
-          # - voice_assistant.stop
-          # - delay: 150ms
-          # - media_player.speaker.play_on_device_media_file:
-              # media_file: wake_sound_file
-              # announcement: true
-          # - delay: 1s
+  # then:
+  # while:
+  # condition:
+  # switch.is_on: timer_ringing
+  # then:
+  # - voice_assistant.stop
+  # - delay: 150ms
+  # - media_player.speaker.play_on_device_media_file:
+  # media_file: wake_sound_file
+  # announcement: true
+  # - delay: 1s
 
   - id: timer_started_external
     then:
@@ -337,7 +393,7 @@ script:
               service: media_player.play_media
               data:
                 entity_id: media_player.${external_media_player}
-                media_content_id: '${home_assistant_host}/local/sounds/timer_finished.mp3'
+                media_content_id: "${home_assistant_host}/local/sounds/timer_finished.mp3"
                 media_content_type: music
           - delay: 1700ms
 
@@ -424,7 +480,7 @@ globals:
   - id: speaker_volume
     type: int
     restore_value: no
-    initial_value: '5'
+    initial_value: "5"
   - id: media_state
     type: bool
     restore_value: no
@@ -455,9 +511,9 @@ number:
   - id: s_saver_delay
     platform: template
     name: "Scr/save delay"
-    icon: 'mdi:sleep'
+    icon: "mdi:sleep"
     entity_category: config
-    unit_of_measurement: 'secs'
+    unit_of_measurement: "secs"
     optimistic: true
     restore_value: true
     initial_value: 30
@@ -472,9 +528,9 @@ number:
   - id: s_saver_blank_delay
     platform: template
     name: "Scr/off delay"
-    icon: 'mdi:monitor-off'
+    icon: "mdi:monitor-off"
     entity_category: config
-    unit_of_measurement: 'secs'
+    unit_of_measurement: "secs"
     optimistic: true
     restore_value: true
     initial_value: 30
@@ -489,9 +545,9 @@ number:
   - id: s_saver_brightness
     platform: template
     name: "Scr/save Brightness"
-    icon: 'mdi:sleep'
+    icon: "mdi:sleep"
     entity_category: config
-    unit_of_measurement: '%'
+    unit_of_measurement: "%"
     optimistic: true
     restore_value: true
     initial_value: 30
@@ -506,9 +562,9 @@ number:
   - id: s_default_brightness
     platform: template
     name: "Default Brightness"
-    icon: 'mdi:monitor'
+    icon: "mdi:monitor"
     entity_category: config
-    unit_of_measurement: '%'
+    unit_of_measurement: "%"
     optimistic: true
     restore_value: true
     initial_value: 100
@@ -529,7 +585,7 @@ switch:
   - platform: gpio
     name: Speaker Enable
     id: speaker_enable
-    pin: 
+    pin:
       number: GPIO46
       ignore_strapping_warning: true
     restore_mode: ALWAYS_OFF
@@ -542,12 +598,12 @@ switch:
     optimistic: true
     restore_mode: RESTORE_DEFAULT_ON
     entity_category: config
-    icon: 'mdi:chat'
+    icon: "mdi:chat"
 
   - platform: template
     name: Output audio externally
     id: output_audio
-    icon: 'mdi:volume-off'
+    icon: "mdi:volume-off"
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
     entity_category: config
@@ -615,7 +671,7 @@ switch:
   - platform: template
     id: s_saver_mode
     name: Scr/off enable
-    icon: 'mdi:monitor-off'
+    icon: "mdi:monitor-off"
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
     entity_category: config
@@ -623,7 +679,7 @@ switch:
   - platform: template # remove for no sensor version
     id: s_saver_presc
     name: Screen wake on motion
-    icon: 'mdi:motion-sensor'
+    icon: "mdi:motion-sensor"
     entity_category: config
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
@@ -637,12 +693,12 @@ switch:
     on_turn_off:
       # Turn off the repeat mode and disable the pause between playlist items
       - lambda: |-
-              id(speaker_media_player)
-                ->make_call()
-                .set_command(media_player::MediaPlayerCommand::MEDIA_PLAYER_COMMAND_REPEAT_OFF)
-                .set_announcement(true)
-                .perform();
-              id(speaker_media_player)->set_playlist_delay_ms(speaker::AudioPipelineType::ANNOUNCEMENT, 0);
+          id(speaker_media_player)
+            ->make_call()
+            .set_command(media_player::MediaPlayerCommand::MEDIA_PLAYER_COMMAND_REPEAT_OFF)
+            .set_announcement(true)
+            .perform();
+          id(speaker_media_player)->set_playlist_delay_ms(speaker::AudioPipelineType::ANNOUNCEMENT, 0);
       # Stop playing the alarm
       - media_player.stop:
           announcement: true
@@ -663,12 +719,12 @@ switch:
       # Turn on the repeat mode and pause for 1000 ms between playlist items/repeats
       - lambda: id(led).turn_on().set_brightness(1.0).perform();
       - lambda: |-
-            id(speaker_media_player)
-              ->make_call()
-              .set_command(media_player::MediaPlayerCommand::MEDIA_PLAYER_COMMAND_REPEAT_ONE)
-              .set_announcement(true)
-              .perform();
-            id(speaker_media_player)->set_playlist_delay_ms(speaker::AudioPipelineType::ANNOUNCEMENT, 1000);
+          id(speaker_media_player)
+            ->make_call()
+            .set_command(media_player::MediaPlayerCommand::MEDIA_PLAYER_COMMAND_REPEAT_ONE)
+            .set_announcement(true)
+            .perform();
+          id(speaker_media_player)->set_playlist_delay_ms(speaker::AudioPipelineType::ANNOUNCEMENT, 1000);
       - media_player.speaker.play_on_device_media_file:
           media_file: timer_finished_sound
           announcement: true
@@ -693,7 +749,7 @@ switch:
 
   - platform: template
     id: ext_media_mute
-    icon: 'mdi:volume-off'
+    icon: "mdi:volume-off"
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
     entity_category: config
@@ -733,7 +789,6 @@ sensor:
     humidity:
       name: "S3 Humidity"
     update_interval: 60s
-
 
   - platform: uptime
     id: up_sens
@@ -871,7 +926,7 @@ speaker:
     bits_per_sample: 16bit
     channel: left
     audio_dac: es8311_dac
-    buffer_duration: 500ms  # Increased for stability without timeout @youkorr
+    buffer_duration: 500ms # Increased for stability without timeout @youkorr
   # Virtual speakers to combine the announcement and media streams together into one output
   - id: mixing_speaker
     platform: mixer
@@ -883,11 +938,11 @@ speaker:
   - platform: resampler
     id: announcement_resampling_speaker
     output_speaker: announcement_mixing_input
-    sample_rate: 48000  # Added explicit sample rate
+    sample_rate: 48000 # Added explicit sample rate
   - platform: resampler
     id: media_resampling_speaker
     output_speaker: media_mixing_input
-    sample_rate: 48000  # Added explicit sample rate
+    sample_rate: 48000 # Added explicit sample rate
 
 media_player:
   - platform: speaker
@@ -901,17 +956,17 @@ media_player:
       speaker: announcement_resampling_speaker
       format: FLAC
       sample_rate: 48000
-      num_channels: 1  # S3 Box only has one output channel
+      num_channels: 1 # S3 Box only has one output channel
     media_pipeline:
       speaker: media_resampling_speaker
-      format: FLAC  # FLAC is the least processor intensive codec
+      format: FLAC # FLAC is the least processor intensive codec
       num_channels: 2
       sample_rate: 48000
     files:
       - id: timer_finished_sound
         file: https://github.com/esphome/home-assistant-voice-pe/raw/dev/sounds/timer_finished.flac
       - id: wake_sound_file
-        file: https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/sounds/awake.flac
+        file: https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/sounds/awake.flac
     on_state:
       then:
         - if:
@@ -966,10 +1021,10 @@ media_player:
 micro_wake_word:
   vad:
   models:
-    #- model: ${micro_wake_word_model_1}
-    # - model: ${micro_wake_word_model_2}
+    - model: ${micro_wake_word_model_1}
+    - model: ${micro_wake_word_model_2}
     - model: ${micro_wake_word_model_3}
-    # - model: ${micro_wake_word_model_4}
+    - model: ${micro_wake_word_model_4}
   on_wake_word_detected:
     - lambda: id(global_is_assisting) = true;
     - delay: 50ms
@@ -997,7 +1052,7 @@ micro_wake_word:
                   service: media_player.play_media
                   data:
                     entity_id: media_player.${external_media_player}
-                    media_content_id: '${home_assistant_host}/local/sounds/awake.mp3'
+                    media_content_id: "${home_assistant_host}/local/sounds/awake.mp3"
                     media_content_type: music
     - display.page.show: listening_page
     - component.update: s3_box_lcd
@@ -1026,10 +1081,10 @@ voice_assistant:
           # - voice_assistant.stop:
           # - delay: 150ms
           # - if:
-              # condition:
-                # not:
-                  # microphone.is_capturing:
-              # then:
+          # condition:
+          # not:
+          # microphone.is_capturing:
+          # then:
           - media_player.speaker.play_on_device_media_file:
               media_file: wake_sound_file
               announcement: true
@@ -1051,7 +1106,7 @@ voice_assistant:
                   service: media_player.play_media
                   data:
                     entity_id: media_player.${external_media_player}
-                    media_content_id: '${home_assistant_host}/local/sounds/awake.mp3'
+                    media_content_id: "${home_assistant_host}/local/sounds/awake.mp3"
                     media_content_type: music
     - voice_assistant.start
   on_start:
@@ -1103,7 +1158,7 @@ voice_assistant:
               service: media_player.play_media
               data:
                 entity_id: media_player.${external_media_player}
-                media_content_id: !lambda 'return x;'
+                media_content_id: !lambda "return x;"
                 media_content_type: music
                 announce: "false"
     - delay: 5s
@@ -1221,241 +1276,203 @@ voice_assistant:
               - component.update: s3_box_lcd
 
 image:
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/error.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/error.png"
     id: error_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/idle.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/idle.png"
     id: idle_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/listening.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/listening.png"
     id: listening_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/thinking.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/thinking.png"
     id: thinking_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/replying.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/replying.png"
     id: replying_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/loading.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/loading.png"
     id: loading_img
     resize: 320x240
     type: RGB
     transparency: alpha_channel
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/logo.png"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/logo.png"
     id: logo_img
     resize: 80x75
     type: RGB
     transparency: alpha_channel
 font:
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font
     size: 14
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font16
     size: 16
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font2
     size: 72
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font3
     size: 28
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font4
     size: 40
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font18
     size: 18
-    glyphs:
-      '${font_glyphs}'
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+    glyphs: "${font_glyphs}"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font5
     size: 22
-    glyphs:
-      '${font_glyphs}'
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+    glyphs: "${font_glyphs}"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font6
     size: 50
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/consola.ttf"
     id: my_font82
     size: 82
-    glyphs:
-      '${font_glyphs}'
+    glyphs: "${font_glyphs}"
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
     id: icon_font_55
     size: 45
     glyphs: &icon_glyphs
-      - "\U000F0079"#battery 100%
-      - "\U000F007A"#battery 10%
-      - "\U000F007B"#battery 20%
-      - "\U000F007C"#battery 30%
-      - "\U000F007D"#battery 40%
-      - "\U000F007E"#battery 50%
-      - "\U000F007F"#battery 60%
-      - "\U000F0080"#battery 70%
-      - "\U000F0081"#battery 80%
-      - "\U000F0082"#battery 90%
-      - "\U000F009E"#bell
-      - "\U000F0150"#clock
-      - "\U000F01AE"#gbp pound symbol
-      - "\U000F0210"#fan
-      - "\U000F0238"#heating
-      - "\U000F024A"#garden/flower
-      - "\U000F0335"#light bulb off
-      - "\U000F036C"#microphone on
-      - "\U000F036D"#microphone off
-      - "\U000F036F"#voice settings
-      - "\U000F03E4"#pause
-      - "\U000F040A"#play
-      - "\U000F040E"#play/pause
-      - "\U000F0493"#settings cog
-      - "\U000F04AD"#next track
-      - "\U000F04AE"#previous track
-      - "\U000F04B9"#living room
-      - "\U000F04C8"#spots
-      - "\U000F04DB"#stop
-      - "\U000F0502"#screen settings
-      - "\U000F050F"#temp sensor
-      - "\U000F0521"#toggle on
-      - "\U000F0565"#arming
-      - "\U000F057E"#speaker on
-      - "\U000F0581"#speaker off
-      - "\U000F05CB"#voice
-      - "\U000F068A"#alarm home
-      - "\U000F06E8"#light bulb illuminated
-      - "\U000F075A"#music
-      - "\U000F075D"#vol plus
-      - "\U000F075E"#vol minus
-      - "\U000F0769"#ceiling
-      - "\U000F07D0"#api connected
-      - "\U000F07F4"#tv
-      - "\U000F0873"#car miles non
-      - "\U000F0874"#car miles full
-      - "\U000F0875"#car miles low
-      - "\U000F087B"#api disconnected
-      - "\U000F08D6"#settings
-      - "\U000F099D"#alarm away
-      - "\U000F099E"#disarmed
-      - "\U000F0A19"#toggle off
-      - "\U000F0B26"#down
-      - "\U000F0B28"#left
-      - "\U000F0B2A"#right
-      - "\U000F0B2C"#up
-      - "\U000F0B6C"#car battery
-      - "\U000F0D90"#screen off
-      - "\U000F0EBA"#stats
-      - "\U000F0ED4"#voice off
-      - "\U000F0FCE"#scene
-      - "\U000F1061"#dining
-      - "\U000F10CD"#battery warning
-      - "\U000F1160"#kitchen
-      - "\U000F12A8"#touch button
-      - "\U000F12D3"#garage closed
-      - "\U000F12D4"#garage open
-      - "\U000F1322"#tools
-      - "\U000F16BC"#wifidisconnected
-      - "\U000F16BD"#wifi connected
-      - "\U000F1722"#fire off
-      - "\U000F1747"#tall lamp
-      - "\U000F1828"#armed night
-      - "\U000F192D"#electricity
-      - "\U000F1987"#floods
-      - "\U000F1A12"#home button
-      - "\U000F1A1B"#gas
-      - "\U000F1C3B"#battery charging/usb powered
-      - "\U000F1C6F"#info
+      - ${bell_glyph}
+      - ${clock_glyph}
+      - ${mic_on_glyph}
+      - ${mic_off_glyph}
+      - ${voice_settings_glyph}
+      - ${pause_glyph}
+      - ${play_glyph}
+      - ${play_pause_glyph}
+      - ${settings_cog_glyph}
+      - ${next_track_glyph}
+      - ${previous_track_glyph}
+      - ${living_room_glyph}
+      - ${spots_glyph}
+      - ${stop_glyph}
+      - ${screen_settings_glyph}
+      - ${temp_sensor_glyph}
+      - ${toggle_on_glyph}
+      - ${speaker_on_glyph}
+      - ${speaker_off_glyph}
+      - ${voice_glyph}
+      - ${light_bulb_on_glyph}
+      - ${music_glyph}
+      - ${vol_plus_glyph}
+      - ${vol_minus_glyph}
+      - ${ceiling_glyph}
+      - ${api_connected_glyph}
+      - ${tv_glyph}
+      - ${api_disconnected_glyph}
+      - ${settings_glyph}
+      - ${toggle_off_glyph}
+      - ${down_glyph}
+      - ${left_glyph}
+      - ${right_glyph}
+      - ${up_glyph}
+      - ${screen_off_glyph}
+      - ${stats_glyph}
+      - ${voice_off_glyph}
+      - ${scene_glyph}
+      - ${dining_glyph}
+      - ${kitchen_glyph}
+      - ${touch_button_glyph}
+      - ${garage_closed_glyph}
+      - ${garage_open_glyph}
+      - ${tools_glyph}
+      - ${wifi_disconnected_glyph}
+      - ${wifi_connected_glyph}
+      - ${fire_off_glyph}
+      - ${tall_lamp_glyph}
+      - ${electricity_glyph}
+      - ${floods_glyph}
+      - ${home_button_glyph}
+      - ${gas_glyph}
+      - ${info_glyph}
 
-
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
     id: icon_font_180
     size: 180
     glyphs: *icon_glyphs
 
-
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
     id: icon_font_80
     size: 75
     glyphs: *icon_glyphs
 
-  - file: "https://github.com/BigBobbas/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
+  - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
     id: icon_font_60
     size: 60
     glyphs: *icon_glyphs
 
 color:
   - id: green
-    hex: '75D15F'
+    hex: "75D15F"
   - id: red
-    hex: 'FF3131'
+    hex: "FF3131"
   - id: blue
-    hex: '47B7E9'
+    hex: "47B7E9"
   - id: blue_drk
-    hex: '085296'
+    hex: "085296"
   - id: amber
-    hex: 'FBAB35'
+    hex: "FBAB35"
   - id: lime
-    hex: '20FC30'
+    hex: "20FC30"
   - id: pink
-    hex: 'D92BBC'
+    hex: "D92BBC"
   - id: yellow
-    hex: 'FFC000'
+    hex: "FFC000"
   - id: black
-    hex: '000000'
+    hex: "000000"
   - id: white
-    hex: 'ffffff'
+    hex: "ffffff"
   - id: purple
-    hex: '73264D'
+    hex: "73264D"
   - id: light_blue
-    hex: 'CFE2F3'
+    hex: "CFE2F3"
   - id: bg_blue
-    hex: '032341'
+    hex: "032341"
   - id: bg_purple
-    hex: '301020'
+    hex: "301020"
   - id: bg_green
-    hex: '05350B'
+    hex: "05350B"
   - id: bg_red
-    hex: '3C0000'
+    hex: "3C0000"
   - id: bg_pink
-    hex: '61034D'
+    hex: "61034D"
   - id: bg_charcoal
-    hex: '323232'
+    hex: "323232"
   - id: bg_brown
-    hex: '41220D'
+    hex: "41220D"
   - id: bg_grey
-    hex: '4F4F4F'
+    hex: "4F4F4F"
 
 spi:
   clk_pin: 7
   mosi_pin: 6
-
 
 display:
   - platform: ili9xxx
@@ -1479,32 +1496,37 @@ display:
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-          it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+          it.printf(15, 5, id(icon_font_55), blue, ${api_connected_glyph});
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(15, 5, id(icon_font_55), red, ${api_disconnected_glyph});
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(80, 5, id(icon_font_55), lime, ${wifi_connected_glyph});
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(80, 5, id(icon_font_55), red, ${wifi_disconnected_glyph});
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00")
+          it.printf(135, 5, id(icon_font_55), red, ${clock_glyph});
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+          it.printf(135, 5, id(icon_font_55), lime, ${clock_glyph});
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(190, 5, id(icon_font_55), red, ${mic_off_glyph});
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(190, 5, id(icon_font_55), lime, ${mic_on_glyph});
           }
-          it.printf(20, 75, id(icon_font_80), blue,"\U000F050F");
-          it.printf(40, 120, id(my_font3), white, "%.f", id(s3temp).state); // remove for no sensor version
-          it.printf(120, 75, id(icon_font_80), yellow,"\U000F06E8" );
-          it.printf(220, 75, id(icon_font_80), purple,"\U000F0210");
-          it.printf(20, 155, id(icon_font_80), red,"\U000F075A");
-          it.printf(120, 155, id(icon_font_80), blue,"\U000F0FCE");
-          it.printf(220, 155, id(icon_font_80), lime,"\U000F08D6");
+          it.printf(245, 5, id(icon_font_55), blue,"\U000F050F");
+          it.printf(258, 30, id(my_font), white, "%.f", id(s3temp).state); // remove for no sensor version
+          it.printf(220, 155, id(icon_font_55), lime,"\U000F08D6");
+
+          const char *days[] {"${sunday}","${monday}","${tuesday}","${wednesday}","${thursday}","${friday}","${saturday}"};
+          const char *months[] {"${jan}","${feb}","${mar}","${apr}","${may}","${jun}","${jul}","${aug}","${sept}","${oct}","${nov}","${dec}"};
+          it.printf(160, 100, id(my_font5), light_blue, TextAlign::CENTER, "%s %d %s", days[id(ha_time).now().day_of_week - 1], id(ha_time).now().day_of_month, months[id(ha_time).now().month - 1]);
+          if(id(time_display_format).state == "24 Hr") {
+            it.strftime(160, 160, id(my_font82), TextAlign::CENTER, "%H:%M", id(ha_time).now());
+          } else {
+            it.strftime(160, 160, id(my_font2), TextAlign::CENTER, "%l:%M%p", id(ha_time).now());
+          }
 
       - id: template_page ##### template page ##]##
         lambda: |-
@@ -1883,7 +1905,6 @@ i2c:
     frequency: 50kHz
     id: bus_b
 
-
 touchscreen:
   - platform: gt911
     i2c_id: bus_a
@@ -1897,7 +1918,7 @@ touchscreen:
     on_release:
       - script.execute: saver_enabled
 binary_sensor:
-###### top left hand physical button #######
+  ###### top left hand physical button #######
   - platform: gpio
     id: top_left_button
     pin:
@@ -1923,7 +1944,7 @@ binary_sensor:
                 - display.page.show: saver_page
                 - component.update: s3_box_lcd
 
-# #######     red circle home button   #####################
+  # #######     red circle home button   #####################
   - platform: gt911
     id: home_button
     index: 0
@@ -1938,7 +1959,7 @@ binary_sensor:
           - display.page.show: idle_page
           - component.update: s3_box_lcd
 
-###### radar sensor ########   # remove for no sensor version
+  ###### radar sensor ########   # remove for no sensor version
   - platform: gpio
     pin:
       number: GPIO21
@@ -1957,7 +1978,7 @@ binary_sensor:
           - component.update: s3_box_lcd
           - script.execute: saver_enabled
 
-##### status bar buttons #####
+  ##### status bar buttons #####
   - platform: touchscreen
     pages:
       - idle_page
@@ -1970,14 +1991,15 @@ binary_sensor:
     x_min: 5
     x_max: 60
     y_min: 0
-    y_max: 55
-          #### make sure that the following 4 lines are uncommented by removing the prefixed '#' ###
+    y_max:
+      55
+      #### make sure that the following 4 lines are uncommented by removing the prefixed '#' ###
     # on_click:
-      # min_length: 10ms
-      # max_length: 500ms
-      # then:
-      #### add your action here - make sure to uncomment the following  line by removing the prefixed '#' and keep these below your action #####
-         # - component.update: s3_box_lcd
+    # min_length: 10ms
+    # max_length: 500ms
+    # then:
+    #### add your action here - make sure to uncomment the following  line by removing the prefixed '#' and keep these below your action #####
+    # - component.update: s3_box_lcd
 
   - platform: touchscreen
     pages:
@@ -1999,7 +2021,6 @@ binary_sensor:
       then:
         - display.page.show: wifi_page
         - component.update: s3_box_lcd
-
 
   - platform: touchscreen
     pages:
@@ -2050,8 +2071,7 @@ binary_sensor:
         - switch.toggle: mute_switch
         - component.update: s3_box_lcd
 
-
-##### settings page ####
+  ##### settings page ####
   - platform: touchscreen
     page_id: settings_page
     id: voice_set
@@ -2135,9 +2155,8 @@ binary_sensor:
       then:
         - display.page.show: settings_page
         - component.update: s3_box_lcd
-#########################################
-##### idle / home page ####
-
+  #########################################
+  ##### idle / home page ####
 
   - platform: touchscreen
     page_id: idle_page
@@ -2191,7 +2210,7 @@ binary_sensor:
         - display.page.show: settings_page
         - component.update: s3_box_lcd
 
-##### media player #####
+  ##### media player #####
   - platform: touchscreen
     page_id: media_page
     name: Volume Minus
@@ -2267,7 +2286,7 @@ binary_sensor:
       then:
         - switch.toggle: media_mute
         - component.update: s3_box_lcd
-#### external media ####
+  #### external media ####
   - platform: touchscreen
     page_id: ext_media_page
     id: ext_prev_track
@@ -2285,7 +2304,6 @@ binary_sensor:
             data:
               entity_id: media_player.${external_media_player}
         - component.update: s3_box_lcd
-
 
   - platform: touchscreen
     page_id: ext_media_page
@@ -2305,7 +2323,6 @@ binary_sensor:
               entity_id: media_player.${external_media_player}
         - component.update: s3_box_lcd
 
-
   - platform: touchscreen
     page_id: ext_media_page
     name: Play Pause
@@ -2323,7 +2340,6 @@ binary_sensor:
             data:
               entity_id: media_player.${external_media_player}
         - component.update: s3_box_lcd
-
 
   - platform: touchscreen
     page_id: ext_media_page
@@ -2378,7 +2394,7 @@ binary_sensor:
         - component.update: s3_box_lcd
         - script.execute: set_volume
 
-##### voice settings page #####
+  ##### voice settings page #####
   - platform: touchscreen
     page_id: ww_set_page
     id: ww_chang_hass
@@ -2439,7 +2455,7 @@ binary_sensor:
       - switch.toggle: display_conversation
       - component.update: s3_box_lcd
 
-##### touch to wake screen #####
+  ##### touch to wake screen #####
   - platform: touchscreen
     page_id: saver_page
     id: ss_wake
@@ -2455,7 +2471,7 @@ binary_sensor:
         - display.page.show: idle_page
         - component.update: s3_box_lcd
 
-##### Timer finished page #####
+  ##### Timer finished page #####
   - platform: touchscreen
     page_id: timer_finished_page
     id: timer_dismiss
@@ -2472,7 +2488,7 @@ binary_sensor:
         - display.page.show: idle_page
         - component.update: s3_box_lcd
 
-##### Timeout settings buttons #####
+  ##### Timeout settings buttons #####
   - id: ss_sleep_down
     page_id: timeout_settings_page
     platform: touchscreen
@@ -2583,7 +2599,7 @@ binary_sensor:
             call.set_value(bright);
             call.perform();
         - component.update: s3_box_lcd
-##### device settings page #####
+  ##### device settings page #####
   - id: s_default_bright_down
     page_id: device_set_page
     platform: touchscreen
@@ -2650,6 +2666,4 @@ binary_sensor:
             operation: Next
             cycle: true
         - component.update: s3_box_lcd
-
-
 ################## config end ############################
