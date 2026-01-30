@@ -1359,59 +1359,59 @@ font:
     id: icon_font_55
     size: 45
     glyphs: &icon_glyphs
-      - ${bell_glyph}
-      - ${clock_glyph}
-      - ${mic_on_glyph}
-      - ${mic_off_glyph}
-      - ${voice_settings_glyph}
-      - ${pause_glyph}
-      - ${play_glyph}
-      - ${play_pause_glyph}
-      - ${settings_cog_glyph}
-      - ${next_track_glyph}
-      - ${previous_track_glyph}
-      - ${living_room_glyph}
-      - ${spots_glyph}
-      - ${stop_glyph}
-      - ${screen_settings_glyph}
-      - ${temp_sensor_glyph}
-      - ${toggle_on_glyph}
-      - ${speaker_on_glyph}
-      - ${speaker_off_glyph}
-      - ${voice_glyph}
-      - ${light_bulb_on_glyph}
-      - ${music_glyph}
-      - ${vol_plus_glyph}
-      - ${vol_minus_glyph}
-      - ${ceiling_glyph}
-      - ${api_connected_glyph}
-      - ${tv_glyph}
-      - ${api_disconnected_glyph}
-      - ${settings_glyph}
-      - ${toggle_off_glyph}
-      - ${down_glyph}
-      - ${left_glyph}
-      - ${right_glyph}
-      - ${up_glyph}
-      - ${screen_off_glyph}
-      - ${stats_glyph}
-      - ${voice_off_glyph}
-      - ${scene_glyph}
-      - ${dining_glyph}
-      - ${kitchen_glyph}
-      - ${touch_button_glyph}
-      - ${garage_closed_glyph}
-      - ${garage_open_glyph}
-      - ${tools_glyph}
-      - ${wifi_disconnected_glyph}
-      - ${wifi_connected_glyph}
-      - ${fire_off_glyph}
-      - ${tall_lamp_glyph}
-      - ${electricity_glyph}
-      - ${floods_glyph}
-      - ${home_button_glyph}
-      - ${gas_glyph}
-      - ${info_glyph}
+      - "${bell_glyph}"
+      - "${clock_glyph}"
+      - "${mic_on_glyph}"
+      - "${mic_off_glyph}"
+      - "${voice_settings_glyph}"
+      - "${pause_glyph}"
+      - "${play_glyph}"
+      - "${play_pause_glyph}"
+      - "${settings_cog_glyph}"
+      - "${next_track_glyph}"
+      - "${previous_track_glyph}"
+      - "${living_room_glyph}"
+      - "${spots_glyph}"
+      - "${stop_glyph}"
+      - "${screen_settings_glyph}"
+      - "${temp_sensor_glyph}"
+      - "${toggle_on_glyph}"
+      - "${speaker_on_glyph}"
+      - "${speaker_off_glyph}"
+      - "${voice_glyph}"
+      - "${light_bulb_on_glyph}"
+      - "${music_glyph}"
+      - "${vol_plus_glyph}"
+      - "${vol_minus_glyph}"
+      - "${ceiling_glyph}"
+      - "${api_connected_glyph}"
+      - "${tv_glyph}"
+      - "${api_disconnected_glyph}"
+      - "${settings_glyph}"
+      - "${toggle_off_glyph}"
+      - "${down_glyph}"
+      - "${left_glyph}"
+      - "${right_glyph}"
+      - "${up_glyph}"
+      - "${screen_off_glyph}"
+      - "${stats_glyph}"
+      - "${voice_off_glyph}"
+      - "${scene_glyph}"
+      - "${dining_glyph}"
+      - "${kitchen_glyph}"
+      - "${touch_button_glyph}"
+      - "${garage_closed_glyph}"
+      - "${garage_open_glyph}"
+      - "${tools_glyph}"
+      - "${wifi_disconnected_glyph}"
+      - "${wifi_connected_glyph}"
+      - "${fire_off_glyph}"
+      - "${tall_lamp_glyph}"
+      - "${electricity_glyph}"
+      - "${floods_glyph}"
+      - "${home_button_glyph}"
+      - "${gas_glyph}"
+      - "${info_glyph}"
 
   - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/fonts/materialdesignicons-webfont.ttf"
     id: icon_font_180
@@ -1496,24 +1496,24 @@ display:
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-          it.printf(15, 5, id(icon_font_55), blue, ${api_connected_glyph});
+          it.printf(15, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, ${api_disconnected_glyph});
+                  it.printf(15, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, ${wifi_connected_glyph});
+                  it.printf(80, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, ${wifi_disconnected_glyph});
+                  it.printf(80, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
           if(id(time_remaining_0).state == "0:00:00")
-          it.printf(135, 5, id(icon_font_55), red, ${clock_glyph});
+          it.printf(135, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, ${clock_glyph});
+          it.printf(135, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, ${mic_off_glyph});
+                 it.printf(190, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, ${mic_on_glyph});
+                 it.printf(190, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           it.printf(245, 5, id(icon_font_55), blue,"\U000F050F");
           it.printf(258, 30, id(my_font), white, "%.f", id(s3temp).state); // remove for no sensor version
