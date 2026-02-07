@@ -6,8 +6,7 @@ substitutions:
   name: esp32-s3box-3
   friendly_name: ESP32-S3-Box-3
 
-  external_media_player: your_media_player ##change this to your external media player enity_id: do not include media_player.
-  home_assistant_host: http://homeassistant.local:8123 ##change to the full url or IP of your HA server including port
+  # home_assistant_host: http://homeassistant.local:8123 ##change to the full url or IP of your HA server including port
   tts_voice_speed: "24000" #options #nabu casa "24000" #piper "16000" elevenlabs "44100" must include quotes
 
   #################### ON DEVICE WAKE WORDS #######################################
@@ -383,20 +382,6 @@ script:
   # announcement: true
   # - delay: 1s
 
-  - id: timer_started_external
-    then:
-      while:
-        condition:
-          switch.is_on: timer_ringing
-        then:
-          - homeassistant.service:
-              service: media_player.play_media
-              data:
-                entity_id: media_player.${external_media_player}
-                media_content_id: "${home_assistant_host}/local/sounds/timer_finished.mp3"
-                media_content_type: music
-          - delay: 1700ms
-
   - id: timer_ending
     then:
       - wait_until:
@@ -510,7 +495,7 @@ globals:
 number:
   - id: s_saver_delay
     platform: template
-    name: "Scr/save delay"
+    name: "Screensaver delay"
     icon: "mdi:sleep"
     entity_category: config
     unit_of_measurement: "secs"
@@ -527,7 +512,7 @@ number:
 
   - id: s_saver_blank_delay
     platform: template
-    name: "Scr/off delay"
+    name: "Screen off delay"
     icon: "mdi:monitor-off"
     entity_category: config
     unit_of_measurement: "secs"
@@ -544,7 +529,7 @@ number:
 
   - id: s_saver_brightness
     platform: template
-    name: "Scr/save Brightness"
+    name: "Screensaver Brightness"
     icon: "mdi:sleep"
     entity_category: config
     unit_of_measurement: "%"
@@ -575,6 +560,21 @@ number:
       - component.update: s_default_brightness
       - script.execute: saver_enabled
       - component.update: s3_box_lcd
+
+  - id: temp_offset
+    platform: template
+    name: "Temperature Offset"
+    icon: "mdi:thermometer"
+    entity_category: config
+    optimistic: true
+    restore_value: true
+    initial_value: 0
+    step: 1
+    min_value: -10
+    max_value: 10
+    on_value:
+      - component.update: temp_offset
+
 button:
   - platform: restart
     id: reboot
@@ -599,22 +599,6 @@ switch:
     restore_mode: RESTORE_DEFAULT_ON
     entity_category: config
     icon: "mdi:chat"
-
-  - platform: template
-    name: Output audio externally
-    id: output_audio
-    icon: "mdi:volume-off"
-    optimistic: true
-    restore_mode: RESTORE_DEFAULT_OFF
-    entity_category: config
-    on_turn_on:
-      media_player.volume_set:
-        id: speaker_media_player
-        volume: 0
-    on_turn_off:
-      media_player.volume_set:
-        id: speaker_media_player
-        volume: 1.0
 
   - platform: template
     name: Mute
@@ -662,7 +646,7 @@ switch:
 
   - platform: template
     id: s_saver
-    name: Scr/save enable
+    name: Screensaver enable
     icon: mdi:sleep
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
@@ -670,7 +654,7 @@ switch:
 
   - platform: template
     id: s_saver_mode
-    name: Scr/off enable
+    name: Screen off enable
     icon: "mdi:monitor-off"
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
@@ -746,24 +730,6 @@ switch:
     entity_category: config
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
-
-  - platform: template
-    id: ext_media_mute
-    icon: "mdi:volume-off"
-    optimistic: true
-    restore_mode: RESTORE_DEFAULT_OFF
-    entity_category: config
-    on_turn_on:
-      then:
-        - homeassistant.service:
-            service: media_player.volume_mute
-            data:
-              entity_id: media_player.${external_media_player}
-    on_turn_off:
-      - homeassistant.service:
-          service: media_player.volume_mute
-          data:
-            entity_id: media_player.${external_media_player}
 
 output:
   - platform: ledc
@@ -873,18 +839,6 @@ text_sensor:
   - platform: template
     id: time_display_format
     update_interval: never
-  - platform: homeassistant
-    entity_id: media_player.${external_media_player}
-    id: ha_media_status
-    on_value:
-      component.update: s3_box_lcd
-
-  - platform: homeassistant
-    entity_id: media_player.${external_media_player}
-    id: ha_media_title
-    attribute: media_content_id
-    on_value:
-      component.update: s3_box_lcd
 
 i2s_audio:
   - id: i2s_audio_bus
@@ -1030,9 +984,7 @@ micro_wake_word:
     - delay: 50ms
     - if:
         condition:
-          and:
-            - switch.is_off: output_audio
-            - switch.is_on: wake_sound
+          - switch.is_on: wake_sound
         then:
           - media_player.speaker.play_on_device_media_file:
               media_file: wake_sound_file
@@ -1041,19 +993,6 @@ micro_wake_word:
               not:
                 - media_player.is_announcing:
           - delay: 150ms
-        else:
-          if:
-            condition:
-              and:
-                - switch.is_on: output_audio
-                - switch.is_on: wake_sound
-            then:
-              - homeassistant.service:
-                  service: media_player.play_media
-                  data:
-                    entity_id: media_player.${external_media_player}
-                    media_content_id: "${home_assistant_host}/local/sounds/awake.mp3"
-                    media_content_type: music
     - display.page.show: listening_page
     - component.update: s3_box_lcd
     - delay: 100ms
@@ -1074,9 +1013,7 @@ voice_assistant:
     - lambda: id(va).set_use_wake_word(false);
     - if:
         condition:
-          and:
-            - switch.is_off: output_audio
-            - switch.is_on: wake_sound
+          - switch.is_on: wake_sound
         then:
           # - voice_assistant.stop:
           # - delay: 150ms
@@ -1095,19 +1032,6 @@ voice_assistant:
           - lambda: id(va).set_use_wake_word(false);
           - display.page.show: listening_page
           - component.update: s3_box_lcd
-        else:
-          if:
-            condition:
-              and:
-                - switch.is_on: wake_sound
-                - switch.is_on: output_audio
-            then:
-              - homeassistant.service:
-                  service: media_player.play_media
-                  data:
-                    entity_id: media_player.${external_media_player}
-                    media_content_id: "${home_assistant_host}/local/sounds/awake.mp3"
-                    media_content_type: music
     - voice_assistant.start
   on_start:
     if:
@@ -1150,17 +1074,6 @@ voice_assistant:
           - switch.turn_on: ext_media_mute
     - display.page.show: replying_page
     - component.update: s3_box_lcd
-    - if:
-        condition:
-          - switch.is_on: output_audio
-        then:
-          - homeassistant.service:
-              service: media_player.play_media
-              data:
-                entity_id: media_player.${external_media_player}
-                media_content_id: !lambda "return x;"
-                media_content_type: music
-                announce: "false"
     - delay: 5s
     - display.page.show: idle_page
     - component.update: s3_box_lcd
@@ -1262,7 +1175,6 @@ voice_assistant:
         - switch.is_on: output_audio
       then:
         - switch.turn_on: timer_ringing
-        - script.execute: timer_started_external
         - display.page.show: timer_finished_page
         - component.update: s3_box_lcd
       else:
@@ -1496,28 +1408,26 @@ display:
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-          it.printf(15, 5, id(icon_font_55), blue, "${api_connected_glyph}");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
           if(id(time_remaining_0).state == "0:00:00") {
-            it.printf(135, 5, id(icon_font_55), red, "${clock_glyph}");
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-            it.printf(135, 5, id(icon_font_55), lime, "${clock_glyph}");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "${mic_off_glyph}");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "${mic_on_glyph}");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
-          it.printf(245, 5, id(icon_font_55), blue,"\U000F050F");
-          it.printf(258, 30, id(my_font), white, "%.f", id(s3temp).state); // remove for no sensor version
-          it.printf(220, 155, id(icon_font_55), lime,"\U000F08D6");
+          it.printf(245, 200, id(icon_font_55), lime, "${settings_cog_glyph}");
 
           const char *days[] {"${sunday}","${monday}","${tuesday}","${wednesday}","${thursday}","${friday}","${saturday}"};
           const char *months[] {"${jan}","${feb}","${mar}","${apr}","${may}","${jun}","${jul}","${aug}","${sept}","${oct}","${nov}","${dec}"};
@@ -1743,7 +1653,7 @@ display:
           } else {
             it.strftime(160, 88, id(my_font2), TextAlign::CENTER, "%l:%M%p", id(ha_time).now());
           }
-          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.f°C", id(s3temp).state); // remove for no sensor version
+          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.f°F", id(s3temp).state*1.8 + 32); // remove for no sensor version
 
       - id: ota_page ##### firmware uploading page #####
         lambda: |-
@@ -2286,113 +2196,6 @@ binary_sensor:
       then:
         - switch.toggle: media_mute
         - component.update: s3_box_lcd
-  #### external media ####
-  - platform: touchscreen
-    page_id: ext_media_page
-    id: ext_prev_track
-    internal: true
-    x_min: 5
-    x_max: 105
-    y_min: 90
-    y_max: 170
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - homeassistant.service:
-            service: media_player.media_previous_track
-            data:
-              entity_id: media_player.${external_media_player}
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ext_media_page
-    id: ext_next_track
-    internal: true
-    x_min: 215
-    x_max: 315
-    y_min: 90
-    y_max: 170
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - homeassistant.service:
-            service: media_player.media_next_track
-            data:
-              entity_id: media_player.${external_media_player}
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ext_media_page
-    name: Play Pause
-    internal: true
-    x_min: 110
-    x_max: 210
-    y_min: 90
-    y_max: 170
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - homeassistant.service:
-            service: media_player.media_pause
-            data:
-              entity_id: media_player.${external_media_player}
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ext_media_page
-    name: Mute Media
-    internal: true
-    x_min: 110
-    x_max: 210
-    y_min: 180
-    y_max: 260
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - switch.toggle: ext_media_mute
-        - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: ext_media_page
-    id: vol_minus
-    internal: true
-    x_min: 5
-    x_max: 105
-    y_min: 180
-    y_max: 260
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - homeassistant.service:
-            service: media_player.volume_down
-            data:
-              entity_id: media_player.${external_media_player}
-        - component.update: s3_box_lcd
-        - script.execute: set_volume
-
-  - platform: touchscreen
-    page_id: ext_media_page
-    id: vol_plus
-    internal: true
-    x_min: 215
-    x_max: 315
-    y_min: 180
-    y_max: 260
-    on_click:
-      min_length: 0ms
-      max_length: 500ms
-      then:
-        - homeassistant.service:
-            service: media_player.volume_up
-            data:
-              entity_id: media_player.${external_media_player}
-        - component.update: s3_box_lcd
-        - script.execute: set_volume
 
   ##### voice settings page #####
   - platform: touchscreen
@@ -2485,6 +2288,7 @@ binary_sensor:
       max_length: 500ms
       then:
         - switch.turn_off: timer_ringing
+        - lambda: id(time_remaining_0).publish_state ("0:00:00");
         - display.page.show: idle_page
         - component.update: s3_box_lcd
 
