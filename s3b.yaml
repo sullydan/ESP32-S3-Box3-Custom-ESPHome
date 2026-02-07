@@ -118,13 +118,6 @@ esphome:
       - component.update: s3_box_lcd
       - script.execute: saver_enabled
       - lambda: id(time_remaining_0).publish_state ("0:00:00");
-      - if:
-          condition:
-            switch.is_on: output_audio
-          then:
-            media_player.volume_set:
-              id: speaker_media_player
-              volume: 0
   project:
     name: "sullydan.s3box"
     version: "2024.09.02"
@@ -1068,10 +1061,8 @@ voice_assistant:
           and:
             - switch.is_on: mute_response_switch
             - switch.is_off: media_mute
-            - switch.is_off: ext_media_mute
         then:
           - switch.turn_on: media_mute
-          - switch.turn_on: ext_media_mute
     - display.page.show: replying_page
     - component.update: s3_box_lcd
     - delay: 5s
@@ -1133,10 +1124,8 @@ voice_assistant:
           and:
             - switch.is_on: mute_response_switch
             - switch.is_on: media_mute
-            - switch.is_on: ext_media_mute
         then:
           - switch.turn_off: media_mute
-          - switch.turn_off: ext_media_mute
 
   on_client_connected:
     - if:
@@ -1170,22 +1159,10 @@ voice_assistant:
         id(time_remaining_0).publish_state(str_sprintf("%d:%02d:%02d", hours, minutes, seconds));
     - component.update: s3_box_lcd
   on_timer_finished:
-    if:
-      condition:
-        - switch.is_on: output_audio
-      then:
-        - switch.turn_on: timer_ringing
-        - display.page.show: timer_finished_page
-        - component.update: s3_box_lcd
-      else:
-        - if:
-            condition:
-              - switch.is_off: output_audio
-            then:
-              - switch.turn_on: timer_ringing
-              # - script.execute: timer_started
-              - display.page.show: timer_finished_page
-              - component.update: s3_box_lcd
+    - switch.turn_on: timer_ringing
+    # - script.execute: timer_started
+    - display.page.show: timer_finished_page
+    - component.update: s3_box_lcd
 
 image:
   - file: "https://github.com/sullydan/ESP32-S3-Box3-Custom-ESPHome/raw/main/images/error.png"
@@ -1561,41 +1538,6 @@ display:
           } else {
                   it.printf(120, 165, id(icon_font_80), lime,"\U000F057E");
           }
-      - id: ext_media_page ##### media player page #####
-        lambda: |-
-          it.fill(id(black));
-          if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
-          } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
-          }
-          if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
-          } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
-          }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
-          } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
-          }
-          if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
-          } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
-          }
-          it.printf(160, 80, id(my_font5), lime, TextAlign::CENTER, id(ha_media_status).state.c_str());
-          it.printf(20, 100, id(icon_font_80), blue,"\U000F04AE");
-          it.printf(120, 100, id(icon_font_80), blue,"\U000F040E");
-          it.printf(220, 100, id(icon_font_80), blue,"\U000F04AD");
-          if(id(ext_media_mute).state) {
-                  it.printf(120, 165, id(icon_font_80), red,"\U000F0581");
-          } else {
-                  it.printf(120, 165, id(icon_font_80), lime,"\U000F057E");
-          }
-          it.printf(20, 165, id(icon_font_80), blue,"\U000F075E");
-          it.printf(220, 165, id(icon_font_80), blue,"\U000F075D");
-
       - id: loading_page ### loading page #####
         lambda: |-
           it.fill(Color::BLACK);
@@ -1723,11 +1665,6 @@ display:
                  it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
           }
           it.printf(15, 75, id(my_font5), light_blue, "Ext media player");
-          if(id(output_audio).state) {
-                 it.printf(255, 60, id(icon_font_60), lime, "\U000F0521");
-          } else {
-                 it.printf(255, 60, id(icon_font_60), blue_drk, "\U000F0A19");
-          }
           it.printf(5, 190, id(icon_font_55), light_blue, "\U000F0B28");
           it.printf(15, 135, id(my_font5), light_blue, "Brightness");
           it.printf(238, 148, id(my_font5), light_blue, TextAlign::CENTER, "%.f", id(s_default_brightness).state);
@@ -1895,7 +1832,6 @@ binary_sensor:
       - info_page
       - template_page
       - media_page
-      - ext_media_page
       - settings_page
     id: status_bar_1
     x_min: 5
@@ -1917,7 +1853,6 @@ binary_sensor:
       - info_page
       - template_page
       - media_page
-      - ext_media_page
       - settings_page
     id: status_bar_2
     internal: true
@@ -1938,7 +1873,6 @@ binary_sensor:
       - info_page
       - template_page
       - media_page
-      - ext_media_page
       - settings_page
     id: status_bar_3
     internal: true
@@ -1966,7 +1900,6 @@ binary_sensor:
       - info_page
       - template_page
       - media_page
-      - ext_media_page
       - settings_page
     id: status_bar_4
     internal: true
@@ -2082,28 +2015,6 @@ binary_sensor:
       then:
         - display.page.show: template_page
         - component.update: s3_box_lcd
-
-  - platform: touchscreen
-    page_id: idle_page
-    id: control_4
-    internal: true
-    x_min: 5
-    x_max: 105
-    y_min: 175
-    y_max: 240
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        if:
-          condition:
-            switch.is_off: output_audio
-          then:
-            - display.page.show: media_page
-            - component.update: s3_box_lcd
-          else:
-            - display.page.show: ext_media_page
-            - component.update: s3_box_lcd
 
   - platform: touchscreen
     page_id: idle_page
@@ -2439,19 +2350,6 @@ binary_sensor:
             auto call = id(s_default_brightness).make_call();
             call.set_value(default_bright);
             call.perform();
-        - component.update: s3_box_lcd
-
-  - id: ext_media_toggle
-    page_id: device_set_page
-    platform: touchscreen
-    internal: true
-    x_min: 280
-    x_max: 320
-    y_min: 80
-    y_max: 120
-    on_press:
-      then:
-        - switch.toggle: output_audio
         - component.update: s3_box_lcd
 
   - platform: touchscreen
