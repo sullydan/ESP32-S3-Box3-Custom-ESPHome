@@ -1813,7 +1813,6 @@ binary_sensor:
     pages:
       - idle_page
       - info_page
-      - template_page
       - media_page
       - settings_page
     id: status_bar_1
@@ -1834,7 +1833,6 @@ binary_sensor:
     pages:
       - idle_page
       - info_page
-      - template_page
       - media_page
       - settings_page
     id: status_bar_2
@@ -1854,7 +1852,6 @@ binary_sensor:
     pages:
       - idle_page
       - info_page
-      - template_page
       - media_page
       - settings_page
     id: status_bar_3
@@ -1881,7 +1878,6 @@ binary_sensor:
     pages:
       - idle_page
       - info_page
-      - template_page
       - media_page
       - settings_page
     id: status_bar_4
@@ -1983,21 +1979,6 @@ binary_sensor:
         - component.update: s3_box_lcd
   #########################################
   ##### idle / home page ####
-
-  - platform: touchscreen
-    page_id: idle_page
-    id: control_3
-    internal: true
-    x_min: 215
-    x_max: 315
-    y_min: 90
-    y_max: 170
-    on_click:
-      min_length: 10ms
-      max_length: 500ms
-      then:
-        - display.page.show: template_page
-        - component.update: s3_box_lcd
 
   - platform: touchscreen
     page_id: idle_page
