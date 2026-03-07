@@ -262,6 +262,19 @@ select:
 
   - platform: template
     entity_category: config
+    name: Wake Word model
+    id: wake_word_model
+    optimistic: true
+    restore_value: true
+    options:
+      - alexa
+      - hey_jarvis
+      - okay_nabu
+      - hey_mycroft
+    initial_option: hey_jarvis
+
+  - platform: template
+    entity_category: config
     name: Time Format
     id: time_format
     optimistic: true
@@ -1404,7 +1417,7 @@ display:
           } else {
                  it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
-          it.printf(245, 200, id(icon_font_55), lime, "${settings_cog_glyph}");
+          it.printf(245, 180, id(icon_font_55), lime, "${settings_cog_glyph}");
 
           const char *days[] {"${sunday}","${monday}","${tuesday}","${wednesday}","${thursday}","${friday}","${saturday}"};
           const char *months[] {"${jan}","${feb}","${mar}","${apr}","${may}","${jun}","${jul}","${aug}","${sept}","${oct}","${nov}","${dec}"};
@@ -1415,58 +1428,28 @@ display:
             it.strftime(160, 160, id(my_font2), TextAlign::CENTER, "%l:%M%p", id(ha_time).now());
           }
 
-      - id: template_page ##### template page ##]##
-        lambda: |-
-          it.fill(id(black));
-          if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
-          } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
-          }
-          if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
-          } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
-          }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
-          } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
-          }
-          if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
-          } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
-          }
-          it.printf(20, 75, id(icon_font_80), light_blue,"\U000F06E8");
-          it.printf(120, 75, id(icon_font_80), light_blue,"\U000F06E8");
-          it.printf(220, 75, id(icon_font_80), light_blue, "\U000F06E8");
-          it.printf(20, 155, id(icon_font_80), light_blue,"\U000F06E8");
-          it.printf(120, 155, id(icon_font_80), light_blue,"\U000F06E8");
-          it.printf(220, 155, id(icon_font_80), light_blue, "\U000F06E8");
-
       - id: info_page ##### info page #####
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           it.printf(160, 75, id(my_font5), light_blue, TextAlign::CENTER, "IP Address");
           it.printf(160, 95, id(my_font5), yellow, TextAlign::CENTER, "%s", id(ip_addr).state.c_str());
@@ -1478,65 +1461,65 @@ display:
       - id: ww_set_page ##### voice settings page #####
         lambda: |-
           it.fill(id(black));
-          it.printf(160, 50, id(icon_font_55), light_blue, TextAlign::CENTER, "\U000F08D6");
+          it.printf(160, 50, id(icon_font_55), light_blue, TextAlign::CENTER, "${settings_glyph}");
           it.printf(160, 20, id(my_font5), light_blue, TextAlign::CENTER, "Voice Settings");
           it.printf(155, 85, id(my_font5), light_blue, TextAlign::CENTER, "tap to change");
           it.printf(135, 115, id(my_font5), light_blue, TextAlign::RIGHT, "WakeWord :");
           it.printf(310, 115, id(my_font5), lime, TextAlign::RIGHT, "%s", id(wakeword_location).state.c_str());
           it.printf(250, 145, id(my_font5), light_blue, TextAlign::RIGHT, "Mute responses :");
           if(id(mute_response_switch).state) {
-                 it.printf(255, 135, id(icon_font_55), lime, "\U000F0521");
+                 it.printf(255, 135, id(icon_font_55), lime, "${toggle_on_glyph}");
           } else {
-                 it.printf(255, 135, id(icon_font_55), blue_drk, "\U000F0A19");
+                 it.printf(255, 135, id(icon_font_55), blue_drk, "${toggle_off_glyph}");
           }
           it.printf(250, 175, id(my_font5), light_blue, TextAlign::RIGHT, "Wake up sound :");
           if(id(wake_sound).state) {
-                 it.printf(255, 165, id(icon_font_55), lime, "\U000F0521");
+                 it.printf(255, 165, id(icon_font_55), lime, "${toggle_on_glyph}");
           } else {
-                 it.printf(255, 165, id(icon_font_55), blue_drk, "\U000F0A19");
+                 it.printf(255, 165, id(icon_font_55), blue_drk, "${toggle_off_glyph}");
           }
           it.printf(250, 205, id(my_font5), light_blue, TextAlign::RIGHT, "Show Conversation :");
           if(id(display_conversation).state) {
-                 it.printf(255, 195, id(icon_font_55), lime, "\U000F0521");
+                 it.printf(255, 195, id(icon_font_55), lime, "${toggle_on_glyph}");
           } else {
-                 it.printf(255, 195, id(icon_font_55), blue_drk, "\U000F0A19");
+                 it.printf(255, 195, id(icon_font_55), blue_drk, "${toggle_off_glyph}");
           }
 
       - id: media_page ##### media player page #####
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           if(id(media_state) == true) {
                  it.printf(160, 80, id(my_font5), lime, TextAlign::CENTER, "Playing");
           } else {
                  it.printf(160, 80, id(my_font5), light_blue, TextAlign::CENTER, "Nothing Playing");
           }
-          it.printf(20, 100, id(icon_font_80), blue,"\U000F075E");
-          it.printf(120, 100, id(icon_font_80), blue,"\U000F040E");
-          it.printf(220, 100, id(icon_font_80), blue,"\U000F075D");
+          it.printf(20, 100, id(icon_font_80), blue, "${vol_minus_glyph}");
+          it.printf(120, 100, id(icon_font_80), blue, "${play_pause_glyph}");
+          it.printf(220, 100, id(icon_font_80), blue,"${vol_plus_glyph}");
           if(id(media_mute).state) {
-                  it.printf(120, 165, id(icon_font_80), red,"\U000F0581");
+                  it.printf(120, 165, id(icon_font_80), red,"${speaker_off_glyph}");
           } else {
-                  it.printf(120, 165, id(icon_font_80), lime,"\U000F057E");
+                  it.printf(120, 165, id(icon_font_80), lime,"${speaker_on_glyph}");
           }
       - id: loading_page ### loading page #####
         lambda: |-
@@ -1575,7 +1558,7 @@ display:
         lambda: |-
           it.fill(id(black));
           it.printf(160, 20, id(my_font5), light_blue, TextAlign::CENTER, "Timer Finished");
-          it.printf(160, 120, id(icon_font_180), light_blue, TextAlign::CENTER, "\U000F009E");
+          it.printf(160, 120, id(icon_font_180), light_blue, TextAlign::CENTER, "${bell_glyph}");
           it.printf(160, 215, id(my_font5), light_blue, TextAlign::CENTER, "tap screen to dismiss");
 
       - id: muted_page
@@ -1595,12 +1578,12 @@ display:
           } else {
             it.strftime(160, 88, id(my_font2), TextAlign::CENTER, "%l:%M%p", id(ha_time).now());
           }
-          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.f°F", id(s3temp).state*1.8 + 32); // remove for no sensor version
+          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.f°F", id(s3temp).state*1.8 + 32 + temp_offset); // remove for no sensor version
 
       - id: ota_page ##### firmware uploading page #####
         lambda: |-
           it.fill(Color::BLACK);
-          it.printf(160, 60, id(icon_font_80), red, TextAlign::CENTER, "\U000F08D6");
+          it.printf(160, 60, id(icon_font_80), red, TextAlign::CENTER, "${settings_glyph}");
           it.printf((it.get_width() / 2), (it.get_height() / 2), id(my_font3), red, TextAlign::CENTER, "FIRMWARE UPDATING");
           it.printf(160,155, id(my_font5), blue, TextAlign::CENTER, "Once restarted");
           it.printf(160,190, id(my_font5), blue, TextAlign::CENTER, "press the reboot button");
@@ -1609,33 +1592,33 @@ display:
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           it.printf(160, 65, id(my_font5), light_blue, TextAlign::CENTER, "settings");
-          it.printf(20, 80, id(icon_font_55), light_blue,"\U000F036F");
-          it.printf(140, 80, id(icon_font_55), light_blue,"\U000F0502");
-          it.printf(255, 80, id(icon_font_55), light_blue, "\U000F1C6F");
+          it.printf(20, 80, id(icon_font_55), light_blue,"${voice_settings_glyph}");
+          it.printf(140, 80, id(icon_font_55), light_blue,"${screen_settings_glyph}");
+          it.printf(255, 80, id(icon_font_55), light_blue, "${info_glyph}");
           it.printf(15, 210, id(my_font5), light_blue,"Device");
           it.printf(245, 130, id(my_font5), light_blue, "Info");
-          it.printf(20, 160, id(icon_font_55), light_blue,"\U000F08D6");
-          it.printf(255, 160, id(icon_font_55), light_blue, "\U000F05CB");
+          it.printf(20, 160, id(icon_font_55), light_blue,"${settings_glyph}");
+          it.printf(255, 160, id(icon_font_55), light_blue, "${voice_glyph}");
           it.printf(15, 130, id(my_font5), light_blue,"Voice");
           it.printf(135, 130, id(my_font5), light_blue,"Saver");
           it.printf(245, 210, id(my_font5), light_blue, "Test");
@@ -1645,31 +1628,31 @@ display:
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           it.printf(15, 75, id(my_font5), light_blue, "Ext media player");
-          it.printf(5, 190, id(icon_font_55), light_blue, "\U000F0B28");
+          it.printf(5, 190, id(icon_font_55), light_blue, "${left_glyph");
           it.printf(15, 135, id(my_font5), light_blue, "Brightness");
           it.printf(238, 148, id(my_font5), light_blue, TextAlign::CENTER, "%.f", id(s_default_brightness).state);
-          it.printf(160, 125, id(icon_font_55), lime, TextAlign::LEFT, "\U000F0B2C");
-          it.printf(315, 125, id(icon_font_55), lime, TextAlign::RIGHT, "\U000F0B26");
+          it.printf(160, 125, id(icon_font_55), lime, TextAlign::LEFT, "${up_glyph}");
+          it.printf(315, 125, id(icon_font_55), lime, TextAlign::RIGHT, "${down_glyph}");
           it.rectangle(215 , 125 , 46 , 40 , light_blue);
           it.printf(65, 180, id(my_font5), light_blue, "Time Format:");
           it.printf(210, 180, id(my_font5), lime, "%s", id(time_display_format).state.c_str());
@@ -1677,22 +1660,22 @@ display:
       - id: timeout_settings_page ##### Timeout Settings page #####
         lambda: |-
           it.fill(id(black));
-          //it.printf(160, 50, id(icon_font_55), light_blue, TextAlign::CENTER, "\U000F0150");
+          //it.printf(160, 50, id(icon_font_55), light_blue, TextAlign::CENTER, "${clock_glyph}");
           it.printf(160, 20, id(my_font5), light_blue, TextAlign::CENTER, "Screen Settings");
           it.printf(160, 60, id(my_font5), light_blue, TextAlign::CENTER, "Screen Saver");
           it.printf(50, 80, id(my_font), light_blue, "Delay secs");
           it.printf(185, 80, id(my_font), light_blue, "Dim Brightness");
-          it.printf(105, 100, id(icon_font_55), lime, TextAlign::LEFT, "\U000F0B2C");
-          it.printf(65, 100, id(icon_font_55), lime, TextAlign::RIGHT, "\U000F0B26");
+          it.printf(105, 100, id(icon_font_55), lime, TextAlign::LEFT, "${up_glyph}");
+          it.printf(65, 100, id(icon_font_55), lime, TextAlign::RIGHT, "${down_glyph}");
           it.rectangle(65 , 105 , 40 , 40 , lime);
           it.printf(85, 125, id(my_font5), light_blue, TextAlign::CENTER, "%.f", id(s_saver_delay).state);
           it.printf(20, 160, id(my_font), light_blue, "Screen off delay");
-          it.printf(105, 180, id(icon_font_55), lime, TextAlign::LEFT, "\U000F0B2C");
-          it.printf(65, 180, id(icon_font_55), lime, TextAlign::RIGHT, "\U000F0B26");
+          it.printf(105, 180, id(icon_font_55), lime, TextAlign::LEFT, "${up_glyph}");
+          it.printf(65, 180, id(icon_font_55), lime, TextAlign::RIGHT, "${down_glyph}");
           it.rectangle(65 , 180 , 40 , 40 , lime);
           it.printf(85, 200, id(my_font5), light_blue, TextAlign::CENTER, "%.f", id(s_saver_blank_delay).state);
-          it.printf(255, 100, id(icon_font_55), pink, TextAlign::LEFT, "\U000F0B2C");
-          it.printf(215, 100, id(icon_font_55), pink, TextAlign::RIGHT, "\U000F0B26");
+          it.printf(255, 100, id(icon_font_55), pink, TextAlign::LEFT, "${up_glyph}");
+          it.printf(215, 100, id(icon_font_55), pink, TextAlign::RIGHT, "${down_glyph}");
           it.rectangle(215 , 105 , 40 , 40 , pink);
           it.printf(235, 125, id(my_font5), light_blue, TextAlign::CENTER, "%.f", id(s_saver_brightness).state);
 
@@ -1700,31 +1683,31 @@ display:
         lambda: |-
           it.fill(id(black));
           it.printf(160, 20, id(my_font5), light_blue, TextAlign::CENTER, "Active Timers");
-          it.printf(160, 70, id(icon_font_80), light_blue, TextAlign::CENTER, "\U000F0150");
+          it.printf(160, 70, id(icon_font_80), light_blue, TextAlign::CENTER, "${clock_glyph}");
           it.printf(160, 155, id(my_font6), light_blue, TextAlign::CENTER, "%s", id(time_remaining_0).state.c_str());
 
       - id: wifi_page ##### wifi info page #####
         lambda: |-
           it.fill(id(black));
           if(id(api_connection) == true) {
-                  it.printf(15, 5, id(icon_font_55), blue, "\U000F07D0");
+                  it.printf(20, 5, id(icon_font_55), blue, "${api_connected_glyph}");
           } else {
-                  it.printf(15, 5, id(icon_font_55), red, "\U000F087B");
+                  it.printf(20, 5, id(icon_font_55), red, "${api_disconnected_glyph}");
           }
           if(id(wifi_connection) == true) {
-                  it.printf(80, 5, id(icon_font_55), lime, "\U000F16BD");
+                  it.printf(95, 5, id(icon_font_55), lime, "${wifi_connected_glyph}");
           } else {
-                  it.printf(80, 5, id(icon_font_55), red, "\U000F16BC");
+                  it.printf(95, 5, id(icon_font_55), red, "${wifi_disconnected_glyph}");
           }
-          if(id(time_remaining_0).state == "0:00:00"){
-          it.printf(135, 5, id(icon_font_55), red, "\U000F0150");
+          if(id(time_remaining_0).state == "0:00:00") {
+            it.printf(170, 5, id(icon_font_55), red, "${clock_glyph}");
           } else {
-          it.printf(135, 5, id(icon_font_55), lime, "\U000F0150");
+            it.printf(170, 5, id(icon_font_55), lime, "${clock_glyph}");
           }
           if(id(mute_switch).state) {
-                 it.printf(190, 5, id(icon_font_55), red, "\U000F036D");
+                 it.printf(245, 5, id(icon_font_55), red, "${mic_off_glyph}");
           } else {
-                 it.printf(190, 5, id(icon_font_55), lime, "\U000F036C");
+                 it.printf(245, 5, id(icon_font_55), lime, "${mic_on_glyph}");
           }
           it.printf(160, 75, id(my_font5), light_blue, TextAlign::CENTER, "ssid");
           it.printf(160, 95, id(my_font5), yellow, TextAlign::CENTER, "%s", id(connected_ssid).state.c_str());
