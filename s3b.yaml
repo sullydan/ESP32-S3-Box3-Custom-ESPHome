@@ -1578,7 +1578,7 @@ display:
           } else {
             it.strftime(160, 88, id(my_font2), TextAlign::CENTER, "%l:%M%p", id(ha_time).now());
           }
-          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.0f°F", float(id(s3temp).state*1.8 + 32 + temp_offset)); // remove for no sensor version
+          it.printf(160, 181, id(my_font2), light_blue, TextAlign::CENTER, "%.0f°F", float(id(s3temp).state*1.8 + 32 + id(temp_offset).state); // remove for no sensor version
 
       - id: ota_page ##### firmware uploading page #####
         lambda: |-
